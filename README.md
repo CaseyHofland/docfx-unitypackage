@@ -73,10 +73,6 @@ Specifically, the root of your project should contain:
 2. Go to the Settings tab, select "Pages" in the table on the left, then select "Deploy from a Branch" and select "gh-pages" as the branch to deploy from.
 3. Go to the Actions tab, then select "set up a workflow yourself" and find "docfx-unitypackage" in the marketplace.
 
-![Build and Deployment](https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/52f5cded-f449-4238-9e52-50a52d6d30b6)
-
-*Example of the correct settings for step 2*
-
 Every time you push to main, this action will run and your site will get automatically updated with any documentation or api changes!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
