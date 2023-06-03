@@ -46,8 +46,16 @@ This is a gitHub action for deploying a DocFX website for Unity packages to Gith
 
 
 
-<!-- GETTING STARTED -->
-## Prerequisites
+<!-- Installation -->
+## Installation
+
+1. In the github of your unity package, create a branch called "gh-pages" (the naming matters!).
+2. Go to the Settings tab, select "Pages" in the table on the left, then select "Deploy from a Branch" and select "gh-pages" as the branch to deploy from.
+3. Go to the Actions tab, then select "set up a workflow yourself" and find "docfx-unitypackage" in the marketplace.
+
+Every time you push to main, this action will run and your site will get automatically updated with any documentation or api changes!
+
+### Prerequisites
 
 Your repository should be a [Unity Package](https://docs.unity3d.com/Manual/cus-layout.html).
 
@@ -56,14 +64,6 @@ Specifically, the root of your project should contain:
 - `CHANGELOG.md` [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - either `LICENSE` or `LICENSE.md`
 - either `README.md` or `Documentation~/index.md`
-
-## Installation
-
-1. In the github of your unity package, create a branch called "gh-pages" (the naming matters!).
-2. Go to the Settings tab, select "Pages" in the table on the left, then select "Deploy from a Branch" and select "gh-pages" as the branch to deploy from.
-3. Go to the Actions tab, then select "set up a workflow yourself" and find "docfx-unitypackage" in the marketplace.
-
-Every time you push to main, this action will run and your site will get automatically updated with any documentation or api changes!
 
 
 
