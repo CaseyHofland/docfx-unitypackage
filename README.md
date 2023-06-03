@@ -1,5 +1,3 @@
-<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
-<a name="readme-top"></a>
 <!--
 *** Thanks for checking out the Best-README-Template. If you have a suggestion
 *** that would make this better, please fork the repo and create a pull request
@@ -15,59 +13,51 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-<!-- PROJECT LOGO -->
-<br />
 <div align="center">
-  <a href="https://github.com/CaseyHofland/docfx-unitypackage">
-    <img src="images/logo.png" alt="Logo" width="400">
-  </a>
+  <!-- PROJECT LOGO -->
+  <h2>DocFX Unity Package Action</h2>
 
-<h3 align="center">DocFX Unity Package Action</h3>
-  <p align="center">
+  <a href="https://github.com/CaseyHofland/docfx-unitypackage">
+    <img src="https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/26e90342-31a0-4e6d-a119-b6c7e385d321" alt="Logo" width="400">
+  </a>
+  
+  <p>
     GitHub Action for deploying to GitHub Pages with DocFX for Unity packages
     <br/>
     <a href="https://github.com/CaseyHofland/docfx-unitypackage/issues">Report Bug</a>
     ·
     <a href="https://github.com/CaseyHofland/docfx-unitypackage/issues">Request Feature</a>
   </p>
+  
+  
+  
+  <!-- PROJECT SHIELDS -->
+  [![MIT License][license-shield]][license-url]
+  [![Release][release-shield]][release-url]
+  [![Release Date][release-date-shield]][release-date-url]
 </div>
-
-
-
-<!-- PROJECT SHIELDS -->
-[![MIT License][license-shield]][license-url]
-[![Release][release-shield]][release-url]
-[![Release Date][release-date-shield]][release-date-url]
 
 
 
 <!-- ABOUT THE PROJECT -->
 ### About DocFX Unity Package Action
 
-This is a gitHub action for deploying a DocFX website for Unity packages to Github Pages. These days, Unity maintains a lot of [optional packages](https://docs.unity3d.com/Manual/pack-safe.html) containing [great documentation](https://docs.unity3d.com/Packages/com.unity.cinemachine@2.9/manual/). This action aims to allow you to easily build documentation for Unity packages!
-
-If your repository is already a Unity package, all you need to do follow the [installation guide](#installation)!
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+This is a gitHub action for deploying a DocFX website for Unity packages to Github Pages. These days, Unity maintains a lot of [optional packages](https://docs.unity3d.com/Manual/pack-safe.html) containing [great documentation](https://docs.unity3d.com/Packages/com.unity.cinemachine@2.9/manual/). This action's goal is to allow you to easily build documentation for Unity packages published on github. It aims to mimic [Unity's documentation workflow][workflow-url] while keeping the native benefits of [DocFX][docfx-url].
 
 
 
 <!-- GETTING STARTED -->
-## Getting Started
-
-This section lays out how to get started with DocFX Unity Package Action.
-
-### Prerequisites
+## Prerequisites
 
 Your repository should be a [Unity Package](https://docs.unity3d.com/Manual/cus-layout.html).
 
 Specifically, the root of your project should contain:
 - `package.json`
-- `Changelog.md`
-- `License.md`
--  either `README.md` or `Documentation~/index.md`
+- `CHANGELOG.md` [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+- either `LICENSE` or `LICENSE.md`
+- either `README.md` or `Documentation~/index.md`
 
-### Installation
+## Installation
 
 1. In the github of your unity package, create a branch called "gh-pages" (the naming matters!).
 2. Go to the Settings tab, select "Pages" in the table on the left, then select "Deploy from a Branch" and select "gh-pages" as the branch to deploy from.
@@ -75,39 +65,48 @@ Specifically, the root of your project should contain:
 
 Every time you push to main, this action will run and your site will get automatically updated with any documentation or api changes!
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- USAGE EXAMPLES -->
+<!-- USAGE -->
 ## Usage
 
-Documentation~
+The DocFX Unity Package Action has been specifically designed to mimic the affordances and limitations of the [Package Manager DocTools@2.1][workflow-url]. In theory, you should be able to use the documentation of the version 2.1 tools and everything should work exactly the same, except for the following differences:
+- DocFX Unity Package Action is forgiving to beginners. All that is required by the [Package Manager DocTools@2.1][workflow-url] is recommended, but optional.
+- To add a custom logo and favicon to the generated website, add a file called `logo` and `favicon` inside the `Documentation~/images/` folder. The recommended logo height is 50px.
+- When you don't have a `TableOfContents.md` in your `Documentation~`, the manual will be created without a table of contents. This may be preferrable for single-page documentation.
+- [Unity's per-package metadata](https://docs.unity3d.com/Packages/com.unity.package-manager-doctools@2.1/manual/package-metadata.html), the values you can override in `projectMetadata.json`, are different from [DocFX's per-package metadata](https://dotnet.github.io/docfx/docs/template.html?tabs=modern#template-metadata).
 
-The DocFX Unity Package Action has been specifically designed to mimic the affordances and limitations of the [Package Manager DocTools@2.1](https://docs.unity3d.com/Packages/com.unity.package-manager-doctools@2.1/manual/developer-notes.html#pmdt).
+If there are any other changes not listed here, please [open an issue](https://github.com/CaseyHofland/docfx-unitypackage/issues) to propose it be added to the docs.
 
-Logo and favicon
 
-No toc
 
-Auto docs
+<!-- RESOURCES -->
+## Resources
 
-DocFX Freedom
+### Documentation Guides
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+- [Package documentation guides](https://docs.unity.cn/Packages/com.unity.services.wire@1.1//manual/)
+- [Documenting your package](https://docs.unity3d.com/Manual/cus-document.html)
+- [Unity Style Guide](https://docs-style-guide.unity.com/)
+- [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/welcome/)
 
+### Examples
+
+- [Unity Clock](https://github.com/CaseyHofland/com.caseyhofland.unityclock)
 
 
 <!-- ROADMAP -->
 ## Roadmap
 
+**High Priority:**
 - [ ] Unity API references
 - [ ] Dependencies API references
 - [ ] Versioned Documentation
 
-See the [open issues](https://github.com/CaseyHofland/docfx-unitypackage/issues) for a full list of proposed features (and known issues).
+**Low Priority:**
+- [ ] Add customization options
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+See the [open issues](https://github.com/CaseyHofland/docfx-unitypackage/issues) for a full list of proposed features (and known issues).
 
 
 
@@ -125,8 +124,6 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- LICENSE -->
@@ -134,26 +131,26 @@ Don't forget to give the project a star! Thanks again!
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
 ## Contact
 
-Casey Hofland - [@CaseyHofland](https://mastodon.gamedev.place/@CaseyHofland) - hofland.casey@gmail.com
+### Casey Hofland
 
-Project Link: [https://github.com/CaseyHofland/docfx-unitypackage](https://github.com/CaseyHofland/docfx-unitypackage)
+**Formal:** hofland.casey@gmail.com
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+**Informal:** [@CaseyHofland](https://mastodon.gamedev.place/@CaseyHofland)
 
 
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[license-shield]: https://img.shields.io/github/license/CaseyHofland/docfx-unitypackage.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/CaseyHofland/docfx-unitypackage.svg
 [license-url]: https://github.com/CaseyHofland/docfx-unitypackage/blob/master/LICENSE
-[release-shield]: https://img.shields.io/github/release/CaseyHofland/docfx-unitypackage.svg?style=for-the-badge
+[release-shield]: https://img.shields.io/github/release/CaseyHofland/docfx-unitypackage.svg
 [release-url]: https://github.com/CaseyHofland/docfx-unitypackage/blob/master/releases/latest
-[release-date-shield]: https://img.shields.io/github/release-date/CaseyHofland/docfx-unitypackage.svg?style=for-the-badge
+[release-date-shield]: https://img.shields.io/github/release-date/CaseyHofland/docfx-unitypackage.svg
 [release-date-url]: https://github.com/CaseyHofland/docfx-unitypackage/releases
+[workflow-url]: https://docs.unity3d.com/Packages/com.unity.package-manager-doctools@2.1/manual/developer-notes.html#pmdt
+[docfx-url]: https://dotnet.github.io/docfx/
