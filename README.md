@@ -42,22 +42,22 @@
 <!-- ABOUT THE PROJECT -->
 ### About DocFX Unity Package Action
 
-This is a gitHub action for deploying a DocFX website for Unity packages to Github Pages. These days, Unity maintains a lot of [optional packages](https://docs.unity3d.com/Manual/pack-safe.html) containing [great documentation](https://docs.unity3d.com/Packages/com.unity.cinemachine@2.9/manual/). This action's goal is to allow you to easily build documentation for Unity packages published on github. It aims to mimic [Unity's documentation workflow][workflow-url] while keeping the native benefits of [DocFX][docfx-url].
+This is a GitHub action for deploying a DocFX website for Unity packages to GitHub Pages. These days, Unity maintains a lot of [optional packages](https://docs.unity3d.com/Manual/pack-safe.html) containing [great documentation](https://docs.unity3d.com/Packages/com.unity.cinemachine@2.9/manual/). This action's goal is to allow you to easily build documentation for Unity packages published on GitHub. It aims to mimic [Unity's documentation workflow][workflow-url] while keeping the native benefits of [DocFX][docfx-url].
 
 
 
 <!-- Installation -->
 ## Installation
 
-1. In the github of your unity package, create a branch called "gh-pages" (the naming matters!).
+1. In the GitHub of your Unity package, create a branch called "gh-pages" (the naming matters!).
 2. Go to the Settings tab, select "Pages" in the table on the left, then select "Deploy from a Branch" and select "gh-pages" as the branch to deploy from.
 3. Go to the Actions tab, then select "set up a workflow yourself" and find "docfx-unitypackage" in the marketplace.
 
-Every time you push to main, this action will run and your site will get automatically updated with any documentation or api changes!
+Every time you push to main, this action will run and your site will get automatically updated with any documentation or API changes!
 
 ### Prerequisites
 
-Your repository should be a [Unity Package](https://docs.unity3d.com/Manual/cus-layout.html).
+Your repository should be a [Unity package](https://docs.unity3d.com/Manual/cus-layout.html).
 
 Specifically, the root of your project should contain:
 - `package.json`
@@ -119,10 +119,10 @@ If you have a suggestion that would make this better, please fork the repo and c
 Don't forget to give the project a star! Thanks again!
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a pull request
 
 
 
