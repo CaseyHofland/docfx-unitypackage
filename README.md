@@ -19,14 +19,14 @@
   ⚠️ THE RELEASE IS STILL BEING TESTED ⚠️
   
   <!-- PROJECT LOGO -->
-  <h2>DocFX Unity Package Action</h2>
+  <h2>DocFX Unity package</h2>
 
   <a href="https://github.com/CaseyHofland/docfx-unitypackage">
     <img src="https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/26e90342-31a0-4e6d-a119-b6c7e385d321" alt="Logo" width="400">
   </a>
   
   <p>
-    GitHub Action for deploying to GitHub Pages with DocFX for Unity packages
+    GitHub Action for deploying a DocFX website for Unity packages to Github Pages.
     <br/>
     <a href="https://github.com/CaseyHofland/docfx-unitypackage/issues">Report Bug</a>
     ·
@@ -44,9 +44,9 @@
 
 
 <!-- ABOUT THE PROJECT -->
-### About DocFX Unity Package Action
+### About DocFX Unity package
 
-This is a GitHub action for deploying a DocFX website for Unity packages to GitHub Pages. These days, Unity maintains a lot of [optional packages](https://docs.unity3d.com/Manual/pack-safe.html) containing [great documentation](https://docs.unity3d.com/Packages/com.unity.cinemachine@2.9/manual/). This action's goal is to allow you to easily build documentation for Unity packages published on GitHub. It aims to mimic [Unity's documentation workflow][workflow-url] while keeping the native benefits of [DocFX][docfx-url].
+DocFX Unity package is a GitHub action for deploying a DocFX website for Unity packages to GitHub Pages. These days, Unity maintains a lot of [optional packages](https://docs.unity3d.com/Manual/pack-safe.html) containing [great documentation](https://docs.unity3d.com/Packages/com.unity.cinemachine@2.9/manual/). This action's goal is to allow you to easily build documentation for Unity packages published on GitHub. It aims to mimic [Unity's documentation workflow][workflow-url] while keeping the native benefits of [DocFX][docfx-url].
 
 
 
@@ -74,13 +74,13 @@ Specifically, the root of your project should contain:
 <!-- USAGE -->
 ## Usage
 
-The DocFX Unity Package Action has been specifically designed to mimic the affordances and limitations of the [Package Manager DocTools@2.1][workflow-url]. In theory, you should be able to use the documentation of the version 2.1 tools and everything should work exactly the same, except for the following differences:
-- DocFX Unity Package Action is forgiving to beginners. All that is required by the [Package Manager DocTools@2.1][workflow-url] is recommended, but optional.
+DocFX Unity package has been specifically designed to mimic the affordances and limitations of the [Package Manager DocTools@2.1][workflow-url]. In theory, you should be able to use the documentation of the version 2.1 tools and everything should work exactly the same, except for the following differences:
+- DocFX Unity package is forgiving to beginners. All that is required by the [Package Manager DocTools@2.1][workflow-url] is optional, though strongly recommended.
 - To add a custom logo and favicon to the generated website, add a file called `logo` and `favicon` inside the `Documentation~/images/` folder. The recommended logo height is 50px.
 - When you don't have a `TableOfContents.md` in your `Documentation~`, the manual will be created without a table of contents. This may be preferrable for single-page documentation.
 - [Unity's per-package metadata](https://docs.unity3d.com/Packages/com.unity.package-manager-doctools@2.1/manual/package-metadata.html), the values you can override in `projectMetadata.json`, are different from [DocFX's per-package metadata](https://dotnet.github.io/docfx/docs/template.html?tabs=modern#template-metadata).
 
-If there are any other changes not listed here, please [open an issue](https://github.com/CaseyHofland/docfx-unitypackage/issues) to propose it be added to the docs.
+If there are any other changes not listed here, please [open an issue][issues-url] to propose it be added to the docs.
 
 
 
@@ -110,22 +110,19 @@ If there are any other changes not listed here, please [open an issue](https://g
 **Low Priority:**
 - [ ] Add customization options
 
-See the [open issues](https://github.com/CaseyHofland/docfx-unitypackage/issues) for a full list of proposed features (and known issues).
+See the [open issues][issues-url] for a full list of proposed features (and known issues).
 
 
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+Contributions are always appreciated. You may do so by forking the repo and creating a pull request, or by [opening an issue][issues-url].
 
 1. Fork the Project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -m 'Add my feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
 5. Open a pull request
 
 
@@ -158,3 +155,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 [release-date-url]: https://github.com/CaseyHofland/docfx-unitypackage/releases
 [workflow-url]: https://docs.unity3d.com/Packages/com.unity.package-manager-doctools@2.1/manual/developer-notes.html#pmdt
 [docfx-url]: https://dotnet.github.io/docfx/
+[issues-url]: https://github.com/CaseyHofland/docfx-unitypackage/issues
