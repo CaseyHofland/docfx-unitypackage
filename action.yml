@@ -9,21 +9,10 @@ inputs:
     description: 'Set a generated GITHUB_TOKEN for pushing to the remote branch.'
     required: false
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-
       # This step needs to happen before anything else!
       - name: Move everything inside the manual/ folder.
         run: |
@@ -214,33 +203,3 @@ jobs:
         run: |
           url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
           sed -i '/<\/head>/i\      <meta http-equiv="refresh" content="0;URL='"$url"manual/'">' _site/index.html
-
-      # Upload the generated documentation
-      - name: Upload site artifact
-        uses: actions/upload-artifact@v1
-        with:
-          name: _site
-          path: _site # Must equals the 'build.dest' value on your docfx.json
-
-  # Deploy the generated documentation to the gh-pages branch
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-
-      # Download the generated documentation
-      - name: Download site artifact
-        uses: actions/download-artifact@v1
-        with:
-          name: _site
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ inputs.github_token }}
-          publish_branch: gh-pages
-          publish_dir: _site
