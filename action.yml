@@ -4,6 +4,10 @@ author: Casey Hofland
 branding:
   icon: 'file-text'
   color: 'white'
+inputs:
+  github_token:
+    description: 'Set a generated GITHUB_TOKEN for pushing to the remote branch.'
+    required: false
 
 on:
   workflow_dispatch:
@@ -101,20 +105,22 @@ jobs:
             echo '  homepage: license/LICENSE.md' >> Documentation~/toc.yml
           fi
 
-      - name: Read package.json
-        run: |
-          if [ -f package.json ]; then
-            content=`cat package.json`
-          else
-            content='{}'
-          fi
-          echo 'package<<EOF' >> $GITHUB_ENV
-          echo $content >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
+      # - name: Read package.json
+      #   run: |
+      #     if [ -f package.json ]; then
+      #       content=`cat package.json`
+      #     else
+      #       content='{}'
+      #     fi
+      #     echo 'package<<EOF' >> $GITHUB_ENV
+      #     echo $content >> $GITHUB_ENV
+      #     echo 'EOF' >> $GITHUB_ENV
+
+                      # "_appTitle": "'${{ fromJson(env.package).displayName }}' | '${{ fromJson(env.package).version }}'",
 
       - name: Generate docfx.json
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ inputs.github_token }}
         run: |
           url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
           echo '{
@@ -127,7 +133,7 @@ jobs:
               "build": {
                   "globalMetadataFiles": ["manual/projectMetadata.json", "manual/config.json"],
                   "globalMetadata": {
-                      "_appTitle": "'${{ fromJson(env.package).displayName }}' | '${{ fromJson(env.package).version }}'",
+                      "_appTitle": "Display Name | Version",
                       "_appFooter": "<span>Made by <a href=\"https://github.com/'$GITHUB_REPOSITORY_OWNER'\" target=\"_blank\">'$GITHUB_REPOSITORY_OWNER'</a> using <a href=\"https://dotnet.github.io/docfx\" target=\"_blank\">DocFX</a></span>",
                       "_enableSearch": true,
                       "_enableNewTab": false,
@@ -204,7 +210,7 @@ jobs:
       # Generate a redirect to the manual/ page, taking protocol and custom domain names into account.
       - name: Generate redirect
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ inputs.github_token }}
         run: |
           url=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.html_url')
           sed -i '/<\/head>/i\      <meta http-equiv="refresh" content="0;URL='"$url"manual/'">' _site/index.html
@@ -235,6 +241,6 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ inputs.github_token }}
           publish_branch: gh-pages
           publish_dir: _site
