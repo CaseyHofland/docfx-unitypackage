@@ -1,13 +1,13 @@
 name: docfx-unitypackage
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
 
 jobs:
-  # Generate pages, tables of contents, the docfx.json and anything the docfx needs.
-  generate:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,8 +19,14 @@ jobs:
       - name: Move everything inside the manual/ folder.
         run: |
           mkdir -p manual
-          mv -v Documentation~/* manual/
+          if [ -d Documentation~ ] && [ "$(ls -A Documentation~)" ]; then
+            mv -v Documentation~/* manual/
+          else
+            mkdir -p Documentation~
+          fi
           mv -v manual Documentation~/manual
+
+      # Generate pages, tables of contents, the docfx.json and anything the docfx needs.
 
       - name: Generate index page
         run: echo 'This page redirects to the [manual](manual/).' > Documentation~/index.md
@@ -32,16 +38,10 @@ jobs:
             homepage: manual/index.md
           - name: Scripting API
             href: api/
-            homepage: api/index.md
-          - name: Changelog
-            href: changelog/
-            homepage: changelog/CHANGELOG.md
-          - name: License
-            href: license/
-            homepage: license/LICENSE.md' > Documentation~/toc.yml
+            homepage: api/index.md' > Documentation~/toc.yml
 
-      # Replace * and 5 consecutive spaces with # in the Table of Contents to convert Unity's format to DocFX's format.
       - name: Generate manual Table of Contents
+        # Replace * and 5 consecutive spaces with # in the Table of Contents to convert Unity's format to DocFX's format.
         run: |
           if [ -f Documentation~/manual/TableOfContents.md ]; then
             mv Documentation~/manual/TableOfContents.md Documentation~/manual/toc.md
@@ -49,6 +49,12 @@ jobs:
           if [ -f Documentation~/manual/toc.md ]; then
             sed -i -e 's/*/#/g' Documentation~/manual/toc.md
             sed -i -e 's/     /#/g' Documentation~/manual/toc.md
+          fi
+
+      - name: Generate manual index page
+        run: |
+          if [ ! -f Documentation~/manual/index.md ] && [ -f README.md ]; then
+            cp README.md Documentation~/manual/index.md
           fi
 
       - name: Generate api index page
@@ -63,23 +69,40 @@ jobs:
 
       - name: Generate changelog page
         run: |
-          mkdir -p Documentation~/changelog
-          cp CHANGELOG.md Documentation~/changelog/CHANGELOG.md
-          echo '# [Changes](CHANGELOG.md)' > Documentation~/changelog/toc.md
+          if [ -f CHANGELOG.md ]; then
+            mkdir -p Documentation~/changelog
+            cp CHANGELOG.md Documentation~/changelog/CHANGELOG.md
+            echo '# [Changes](CHANGELOG.md)' > Documentation~/changelog/toc.md
+            echo '- name: Changelog' >> Documentation~/toc.yml
+            echo '  href: changelog/' >> Documentation~/toc.yml
+            echo '  homepage: changelog/CHANGELOG.md' >> Documentation~/toc.yml
+          fi
 
       - name: Generate license page
         run: |
-          mkdir -p Documentation~/license
-          cp LICENSE.md Documentation~/license/LICENSE.md
-          echo '# [License](LICENSE.md)' > Documentation~/license/toc.md
-          if [ -f 'Third Party Notices.md' ]; then
-            cp 'Third Party Notices.md' 'Documentation~/license/Third Party Notices.md'
-            sed -i '1i# [Third Party Notices](Third Party Notices.md)' Documentation~/license/toc.md
+          if [ -f LICENSE ] && [ ! -f LICENSE.md ]; then
+            mv -v LICENSE LICENSE.md
+          fi
+          if [ -f LICENSE.md ]; then
+            mkdir -p Documentation~/license
+            cp LICENSE.md Documentation~/license/LICENSE.md
+            echo '# [License](LICENSE.md)' > Documentation~/license/toc.md
+            if [ -f 'Third Party Notices.md' ]; then
+              cp 'Third Party Notices.md' 'Documentation~/license/Third Party Notices.md'
+              sed -i '1i# [Third Party Notices](Third Party Notices.md)' Documentation~/license/toc.md
+            fi
+            echo '- name: License' >> Documentation~/toc.yml
+            echo '  href: license/' >> Documentation~/toc.yml
+            echo '  homepage: license/LICENSE.md' >> Documentation~/toc.yml
           fi
 
       - name: Read package.json
         run: |
-          content=`cat package.json`
+          if [ -f package.json ]; then
+            content=`cat package.json`
+          else
+            content='{}'
+          fi
           echo 'package<<EOF' >> $GITHUB_ENV
           echo $content >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
@@ -92,16 +115,18 @@ jobs:
           echo '{
               "metadata": [{
                   "src": [{"src": "..", "files": ["**/*.cs"]}],
-                  "globalNamespaceId": "Global",
                   "dest": "api",
+                  "globalNamespaceId": "Global",
                   "allowCompilationErrors": true
               }],
               "build": {
                   "globalMetadataFiles": ["manual/projectMetadata.json", "manual/config.json"],
                   "globalMetadata": {
-                      "_appTitle": "'${{ fromJson(env.package).displayName }}'",
+                      "_appTitle": "'${{ fromJson(env.package).displayName }}' | '${{ fromJson(env.package).version }}'",
                       "_appFooter": "<span>Made by <a href=\"https://github.com/'$GITHUB_REPOSITORY_OWNER'\" target=\"_blank\">'$GITHUB_REPOSITORY_OWNER'</a> using <a href=\"https://dotnet.github.io/docfx\" target=\"_blank\">DocFX</a></span>",
                       "_enableSearch": true,
+                      "_enableNewTab": false,
+                      "_disableNewTab": true,
                       "_disableContribution": true,
                       "_disableNextArticle": true
                   },
@@ -127,8 +152,8 @@ jobs:
       - name: Disable toc if not exists
         run: |
           if [ ! -f Documentation~/manual/toc.md ]; then
-            sed -i '18i\            "_disableToc": {"manual/**/*.md": false},' Documentation~/docfx.json
-            sed -i '18i\            "_layout": {"manual/**/*.md": "landing"},'  Documentation~/docfx.json
+            sed -i '20i\            "_disableToc": {"manual/**/*.md": false},' Documentation~/docfx.json
+            sed -i '20i\            "_layout": {"manual/**/*.md": "landing"},'  Documentation~/docfx.json
           fi
       
       - name: Set favicon if exists
@@ -138,7 +163,7 @@ jobs:
             favicons=( $faviconPattern )
             faviconPath=${favicons[0]}
             relativeFaviconPath=${faviconPath:15}
-            sed -i '12i\            "_appFaviconPath": "'${relativeFaviconPath}'",' Documentation~/docfx.json
+            sed -i '13i\            "_appFaviconPath": "'${relativeFaviconPath}'",' Documentation~/docfx.json
           fi
 
       - name: Set logo if exists
@@ -148,7 +173,7 @@ jobs:
             logos=( $logoPattern )
             logoPath=${logos[0]}
             relativeLogoPath=${logoPath:15}
-            sed -i '12i\            "_appLogoPath": "'${relativeLogoPath}'",' Documentation~/docfx.json
+            sed -i '13i\            "_appLogoPath": "'${relativeLogoPath}'",' Documentation~/docfx.json
           fi
 
       - name: Set filter if exists
@@ -159,27 +184,7 @@ jobs:
             sed -i '5i\        "filter": "manual/filter.yaml",' Documentation~/docfx.json
           fi
 
-      - name: Cache generated content
-        uses: actions/cache@v3
-        with: 
-          path: Documentation~/
-          key: generated-content
-
-  # Build the documentation
-  build:
-    needs: generate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          submodules: true
-
-      - name: Retrieve generated content
-        uses: actions/cache@v3
-        with: 
-          path: Documentation~/
-          key: generated-content
+      # Build docfx site through the Documentation~ folder
 
       - name: Dotnet Setup
         uses: actions/setup-dotnet@v3
