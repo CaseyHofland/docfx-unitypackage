@@ -53,11 +53,41 @@ DocFX Unity package is a GitHub action for deploying a DocFX website for Unity p
 <!-- Installation -->
 ## Installation
 
-1. In the GitHub of your Unity package, create a branch called "gh-pages" (the naming matters!).
+1. In the GitHub of your Unity package, create a branch called "gh-pages".
 2. Go to the Settings tab, select "Pages" in the table on the left, then select "Deploy from a Branch" and select "gh-pages" as the branch to deploy from.
-3. Go to the Actions tab, then select "set up a workflow yourself" and find "docfx-unitypackage" in the marketplace.
+3. Go to the Actions tab, select "set up a workflow yourself", then copy and paste the following code:
+```yaml
+name: docfx-unitypackage
 
-Every time you push to main, this action will run and your site will get automatically updated with any documentation or API changes!
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Build
+        uses: CaseyHofland/docfx-unitypackage@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: _site
+```
+
+Every time you push to main, this action will run and your site will get automatically updated with any documentation or API changes.
 
 ### Prerequisites
 
@@ -79,6 +109,7 @@ DocFX Unity package has been specifically designed to mimic the affordances and 
 - To add a custom logo and favicon to the generated website, add a file called `logo` and `favicon` inside the `Documentation~/images/` folder. The recommended logo height is 50px.
 - When you don't have a `TableOfContents.md` in your `Documentation~`, the manual will be created without a table of contents. This may be preferrable for single-page documentation.
 - [Unity's per-package metadata](https://docs.unity3d.com/Packages/com.unity.package-manager-doctools@2.1/manual/package-metadata.html), the values you can override in `projectMetadata.json`, are different from [DocFX's per-package metadata](https://dotnet.github.io/docfx/docs/template.html?tabs=modern#template-metadata).
+- Currently, `config.json` does nothing and preprocessor directives are not generated.
 
 If there are any other changes not listed here, please [open an issue][issues-url] to propose it be added to the docs.
 
@@ -103,12 +134,13 @@ If there are any other changes not listed here, please [open an issue][issues-ur
 ## Roadmap
 
 **High Priority:**
+- [ ] Support preprocessor directives
 - [ ] Unity API references
 - [ ] Dependencies API references
 - [ ] Versioned Documentation
 
 **Low Priority:**
-- [ ] Add customization options
+- [ ] Customization options
 
 See the [open issues][issues-url] for a full list of proposed features (and known issues).
 
