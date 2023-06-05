@@ -127,7 +127,6 @@ runs:
                 "allowCompilationErrors": true
             }],
             "build": {
-                "globalMetadataFiles": ["manual/projectMetadata.json", "manual/config.json"],
                 "globalMetadata": {
                     "_appTitle": "'${{ fromJson(env.package).displayName }}' | '${{ fromJson(env.package).version }}'",
                     "_appFooter": "<span>Made by <a href=\"https://github.com/'$GITHUB_REPOSITORY_OWNER'\" target=\"_blank\">'$GITHUB_REPOSITORY_OWNER'</a> using <a href=\"https://dotnet.github.io/docfx\" target=\"_blank\">DocFX</a></span>",
@@ -140,6 +139,7 @@ runs:
                 "fileMetadata": {
                     "_disableContribution": {"manual/**/*.md": false}
                 },
+                "globalMetadataFiles": ["manual/projectMetadata.json", "manual/config.json"],
                 "content": [
                     {"files": ["index.md", "toc.yml"]},
                     {"src": "license", "files": ["*.md"], "dest": "license"},
@@ -160,8 +160,8 @@ runs:
       shell: bash
       run: |
         if [ ! -f Documentation~/manual/toc.md ]; then
-          sed -i '20i\            "_disableToc": {"manual/**/*.md": false},' Documentation~/docfx.json
-          sed -i '20i\            "_layout": {"manual/**/*.md": "landing"},'  Documentation~/docfx.json
+          sed -i '19i\            "_disableToc": {"manual/**/*.md": false},' Documentation~/docfx.json
+          sed -i '19i\            "_layout": {"manual/**/*.md": "landing"},'  Documentation~/docfx.json
         fi
     
     - name: Set favicon if exists
@@ -172,7 +172,7 @@ runs:
           favicons=( $faviconPattern )
           faviconPath=${favicons[0]}
           relativeFaviconPath=${faviconPath:15}
-          sed -i '13i\            "_appFaviconPath": "'${relativeFaviconPath}'",' Documentation~/docfx.json
+          sed -i '12i\            "_appFaviconPath": "'${relativeFaviconPath}'",' Documentation~/docfx.json
         fi
 
     - name: Set logo if exists
@@ -183,7 +183,7 @@ runs:
           logos=( $logoPattern )
           logoPath=${logos[0]}
           relativeLogoPath=${logoPath:15}
-          sed -i '13i\            "_appLogoPath": "'${relativeLogoPath}'",' Documentation~/docfx.json
+          sed -i '12i\            "_appLogoPath": "'${relativeLogoPath}'",' Documentation~/docfx.json
         fi
 
     - name: Set filter if exists
