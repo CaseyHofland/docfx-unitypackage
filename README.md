@@ -16,8 +16,6 @@
 
 
 <div align="center">
-  ⚠️ THE RELEASE IS STILL BEING TESTED ⚠️
-  
   <!-- PROJECT LOGO -->
   <h2>DocFX Unity package</h2>
 
