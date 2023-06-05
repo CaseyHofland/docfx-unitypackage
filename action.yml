@@ -101,19 +101,17 @@ runs:
           echo '  homepage: license/LICENSE.md' >> Documentation~/toc.yml
         fi
 
-    # - name: Read package.json
-    #   shell: bash
-    #   run: |
-    #     if [ -f package.json ]; then
-    #       content=`cat package.json`
-    #     else
-    #       content='{}'
-    #     fi
-    #     echo 'package<<EOF' >> $GITHUB_ENV
-    #     echo $content >> $GITHUB_ENV
-    #     echo 'EOF' >> $GITHUB_ENV
-
-                    # "_appTitle": "'${{ fromJson(env.package).displayName }}' | '${{ fromJson(env.package).version }}'",
+    - name: Read package.json
+      shell: bash
+      run: |
+        if [ -f package.json ]; then
+          content=`cat package.json`
+        else
+          content='{}'
+        fi
+        echo 'package<<EOF' >> $GITHUB_ENV
+        echo $content >> $GITHUB_ENV
+        echo 'EOF' >> $GITHUB_ENV
 
     - name: Generate docfx.json
       shell: bash
@@ -131,7 +129,7 @@ runs:
             "build": {
                 "globalMetadataFiles": ["manual/projectMetadata.json", "manual/config.json"],
                 "globalMetadata": {
-                    "_appTitle": "Display Name | Version",
+                    "_appTitle": "'${{ fromJson(env.package).displayName }}' | '${{ fromJson(env.package).version }}'",
                     "_appFooter": "<span>Made by <a href=\"https://github.com/'$GITHUB_REPOSITORY_OWNER'\" target=\"_blank\">'$GITHUB_REPOSITORY_OWNER'</a> using <a href=\"https://dotnet.github.io/docfx\" target=\"_blank\">DocFX</a></span>",
                     "_enableSearch": true,
                     "_enableNewTab": false,
