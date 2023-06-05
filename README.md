@@ -125,7 +125,7 @@ If there are any other changes not listed here, please [open an issue][issues-ur
 
 ### Examples
 
-- [Unity Clock](https://github.com/CaseyHofland/com.caseyhofland.unityclock)
+- [Unity Clock](https://caseyhofland.github.io/com.caseyhofland.unityclock/manual/)
 
 
 <!-- ROADMAP -->
