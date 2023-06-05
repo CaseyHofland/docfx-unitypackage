@@ -14,6 +14,7 @@ runs:
   steps:
     # This step needs to happen before anything else!
     - name: Move everything inside the manual/ folder.
+      shell: bash
       run: |
         mkdir -p manual
         if [ -d Documentation~ ] && [ "$(ls -A Documentation~)" ]; then
@@ -26,9 +27,11 @@ runs:
     # Generate pages, tables of contents, the docfx.json and anything the docfx needs.
 
     - name: Generate index page
+      shell: bash
       run: echo 'This page redirects to the [manual](manual/).' > Documentation~/index.md
 
     - name: Generate main Table of Contents
+      shell: bash
       run: |
         echo '- name: Manual
           href: manual/
@@ -38,6 +41,7 @@ runs:
           homepage: api/index.md' > Documentation~/toc.yml
 
     - name: Generate manual Table of Contents
+      shell: bash
       # Replace * and 5 consecutive spaces with # in the Table of Contents to convert Unity's format to DocFX's format.
       run: |
         if [ -f Documentation~/manual/TableOfContents.md ]; then
@@ -49,12 +53,14 @@ runs:
         fi
 
     - name: Generate manual index page
+      shell: bash
       run: |
         if [ ! -f Documentation~/manual/index.md ] && [ -f README.md ]; then
           cp README.md Documentation~/manual/index.md
         fi
 
     - name: Generate api index page
+      shell: bash
       run: |
         mkdir -p Documentation~/api
         if [ -f Documentation~/api_index.md ]; then
@@ -65,6 +71,7 @@ runs:
         fi
 
     - name: Generate changelog page
+      shell: bash
       run: |
         if [ -f CHANGELOG.md ]; then
           mkdir -p Documentation~/changelog
@@ -76,6 +83,7 @@ runs:
         fi
 
     - name: Generate license page
+      shell: bash
       run: |
         if [ -f LICENSE ] && [ ! -f LICENSE.md ]; then
           mv -v LICENSE LICENSE.md
@@ -94,6 +102,7 @@ runs:
         fi
 
     # - name: Read package.json
+    #   shell: bash
     #   run: |
     #     if [ -f package.json ]; then
     #       content=`cat package.json`
@@ -107,6 +116,7 @@ runs:
                     # "_appTitle": "'${{ fromJson(env.package).displayName }}' | '${{ fromJson(env.package).version }}'",
 
     - name: Generate docfx.json
+      shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       run: |
@@ -149,6 +159,7 @@ runs:
         }' > Documentation~/docfx.json
 
     - name: Disable toc if not exists
+      shell: bash
       run: |
         if [ ! -f Documentation~/manual/toc.md ]; then
           sed -i '20i\            "_disableToc": {"manual/**/*.md": false},' Documentation~/docfx.json
@@ -156,6 +167,7 @@ runs:
         fi
     
     - name: Set favicon if exists
+      shell: bash
       run: |
         faviconPattern="Documentation~/manual/images/favicon.*"
         if compgen -G $faviconPattern > /dev/null; then
@@ -166,6 +178,7 @@ runs:
         fi
 
     - name: Set logo if exists
+      shell: bash
       run: |
         logoPattern="Documentation~/manual/images/logo.*"
         if compgen -G $logoPattern > /dev/null; then
@@ -176,6 +189,7 @@ runs:
         fi
 
     - name: Set filter if exists
+      shell: bash
       run: |
         if [ -f Documentation~/manual/filter.yml ]; then
           sed -i '5i\        "filter": "manual/filter.yml",' Documentation~/docfx.json
@@ -190,13 +204,17 @@ runs:
       with:
         dotnet-version: 7.x
     
-    - run: dotnet tool update -g docfx
+    - name: Dotnet Update
+      shell: bash
+      run: dotnet tool update -g docfx
 
     - name: Build
+      shell: bash
       run: docfx Documentation~/docfx.json
 
     # Generate a redirect to the manual/ page, taking protocol and custom domain names into account.
     - name: Generate redirect
+      shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github_token }}
       run: |
