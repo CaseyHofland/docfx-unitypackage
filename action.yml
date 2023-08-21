@@ -160,13 +160,13 @@ runs:
     - name: Set Global Metadata Files if exists
       shell: bash
       run: |
-        projectMetadataPattern="manual/projectMetadata.json"
-        if [ -f Documentation~/manual/config.json ]; then
-          projectMetadataPattern="$projectMetadataPattern",
+        if [ -f Documentation~/manual/config.json ] && [ -f Documentation~/manual/projectMetadata.json ]; then
           sed -i '22i\            "manual/config.json"' Documentation~/docfx.json
-        fi
-        if [ -f Documentation~/manual/projectMetadata.json ]; then
-          sed -i '22i\            "'${projectMetadataPattern}'"' Documentation~/docfx.json
+          sed -i '22i\            "manual/projectMetadata.json",' Documentation~/docfx.json
+        elif [ -f Documentation~/manual/config.json ]; then
+          sed -i '22i\            "manual/config.json"' Documentation~/docfx.json
+        elif [ -f Documentation~/manual/projectMetadata.json ]; then
+          sed -i '22i\            "manual/projectMetadata.json"' Documentation~/docfx.json
         fi
 
     - name: Disable toc if not exists
