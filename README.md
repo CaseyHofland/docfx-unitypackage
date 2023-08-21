@@ -133,7 +133,7 @@ If there are any other changes not listed here, please [open an issue][issues-ur
 ## Roadmap
 
 **High Priority:**
-- [ ] Support preprocessor directives
+- [x] Support preprocessor directives
 - [ ] Unity API references
 - [ ] Dependencies API references
 - [ ] Versioned Documentation
