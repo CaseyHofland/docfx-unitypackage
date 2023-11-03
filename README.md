@@ -53,8 +53,7 @@ DocFX Unity package is a GitHub action for deploying a DocFX website for Unity p
 
 1. In the GitHub of your Unity package, create a branch called "gh-pages".
 2. Go to the Settings tab, select "Pages" in the table on the left, then select "Deploy from a Branch" and select "gh-pages" as the branch to deploy from.
-3. Go to the Settings tab, Select "Actions > General" in the table on the left, then under "Workflow permissions" select "Read and write permissions".
-4. Go to the Actions tab, select "set up a workflow yourself", then copy and paste the following code:
+3. Go to the Actions tab, select "set up a workflow yourself", then copy and paste the following code:
 ```yaml
 name: docfx-unitypackage
 
@@ -67,9 +66,12 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: true
 
