@@ -28,7 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           # Move "latest" tag
-          update-latest: true
+          update-latest: false
           # Update the vX.Y tags
           update-minor: true
           # Expect vX.Y.Z format
