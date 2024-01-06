@@ -1,0 +1,35 @@
+name: Update release tags
+
+# Only run when new semver tag is pushed
+on:
+  push:
+    tags:
+      # Switch to '[0-9]+.[0-9]+.[0-9]+' if prepend-v is false
+      - v[0-9]+.[0-9]+.[0-9]+
+
+jobs:
+  update-release-tags:
+    name: Update tags
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+        with:
+          # Get complete history
+          fetch-depth: 0
+
+      - name: Update major version and latest tags
+        uses: bewuethr/release-tracker-action@v1
+        env:
+          # GitHub token to enable pushing tags
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # Move "latest" tag
+          update-latest: true
+          # Update the vX.Y tags
+          update-minor: true
+          # Expect vX.Y.Z format
+          prepend-v: true
