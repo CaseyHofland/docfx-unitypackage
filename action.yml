@@ -8,6 +8,11 @@ inputs:
   github_token:
     description: 'Set a generated GITHUB_TOKEN for pushing to the remote branch.'
     required: false
+  toc_spaces:
+    type: string
+    description: 'Set the number of spaces expected in TableOfContents.md to convert to tabs.'
+    required: false
+    default: '5'
 
 runs:
   using: "composite"
@@ -42,14 +47,14 @@ runs:
 
     - name: Generate manual Table of Contents
       shell: bash
-      # Replace * and 5 consecutive spaces with # in the Table of Contents to convert Unity's format to DocFX's format.
+      # Replace * and consecutive spaces with # in the Table of Contents to convert Unity's format to DocFX's format.
       run: |
         if [ -f Documentation~/manual/TableOfContents.md ]; then
           mv Documentation~/manual/TableOfContents.md Documentation~/manual/toc.md
         fi
         if [ -f Documentation~/manual/toc.md ]; then
           sed -i -e 's/*/#/g' Documentation~/manual/toc.md
-          sed -i -e 's/     /#/g' Documentation~/manual/toc.md
+          sed -i -e 's/ {$((${{ inputs.toc_spaces }}))}/#/g' Documentation~/manual/toc.md
         fi
 
     - name: Generate manual index page
