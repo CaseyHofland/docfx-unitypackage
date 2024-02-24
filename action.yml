@@ -16,13 +16,11 @@ runs:
     - name: Move everything inside the manual/ folder.
       shell: bash
       run: |
-        mkdir -p manual
         if [ -d Documentation~ ] && [ "$(ls -A Documentation~)" ]; then
-          mv Documentation~ manual
+          mv Documentation~ Documentation~/manual
         else
-          mkdir -p Documentation~
+          mkdir -p Documentation~/manual
         fi
-        mv -v manual Documentation~/manual
 
     # Generate pages, tables of contents, the docfx.json and anything the docfx needs.
 
