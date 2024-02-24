@@ -146,7 +146,7 @@ runs:
                     {"src": "license", "files": ["*.md"], "dest": "license"},
                     {"src": "changelog", "files": ["*.md"], "dest": "changelog"},
                     {"src": "api", "files": ["*.yml", "index.md"], "dest": "api"},
-                    {"src": "manual", "files": ["*.md"], "dest": "manual"}
+                    {"src": "manual", "files": ["**/*.md"], "dest": "manual"}
                 ],
                 "resource": [{"files": ["manual/images/*"]}],
                 "template": ["default", "modern"],
@@ -211,7 +211,7 @@ runs:
     # Build docfx site through the Documentation~ folder
 
     - name: Dotnet Setup
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 7.x
     
