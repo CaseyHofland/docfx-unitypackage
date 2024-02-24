@@ -18,6 +18,7 @@ runs:
       run: |
         if [ -d Documentation~ ] && [ "$(ls -A Documentation~)" ]; then
           mv Documentation~ manual
+          mkdir -p Documentation~
           mv manual Documentation~/manual
         else
           mkdir -p Documentation~/manual
