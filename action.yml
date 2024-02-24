@@ -22,7 +22,7 @@ runs:
         else
           mkdir -p Documentation~
         fi
-        mv manual Documentation~/manual
+        sudo mv /manual /Documentation~/manual/
 
     # Generate pages, tables of contents, the docfx.json and anything the docfx needs.
 
