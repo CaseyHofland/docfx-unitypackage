@@ -18,11 +18,11 @@ runs:
       run: |
         mkdir -p manual
         if [ -d Documentation~ ] && [ "$(ls -A Documentation~)" ]; then
-          mv -v Documentation~/* manual/
+          mv -v Documentation~ manual
         else
           mkdir -p Documentation~
         fi
-        sudo mv manual /Documentation~/manual/
+        mv -v manual /Documentation~/manual
 
     # Generate pages, tables of contents, the docfx.json and anything the docfx needs.
 
