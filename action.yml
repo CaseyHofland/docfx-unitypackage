@@ -17,9 +17,9 @@ runs:
       shell: bash
       run: |
         if [ -d Documentation~ ] && [ "$(ls -A Documentation~)" ]; then
-          mv Documentation~ manual
+          mv Documentation~/ manual/
           mkdir -p Documentation~
-          mv manual Documentation~/manual
+          mv manual/ Documentation~/manual/
         else
           mkdir -p Documentation~/manual
         fi
