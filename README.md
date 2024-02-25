@@ -19,7 +19,7 @@
   <!-- PROJECT LOGO -->
   <h2>DocFX Unity package</h2>
 
-  ![docfx-unitypackage](https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/d4666aa7-6424-4b5f-9721-021402fb238e)
+  ![docfx-unitypackage showcase](https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/bad8597b-2520-4bd8-9022-55553f004faf)
   
   <p>
     GitHub Action for deploying a DocFX website for Unity packages to Github Pages.
