@@ -19,9 +19,7 @@
   <!-- PROJECT LOGO -->
   <h2>DocFX Unity package</h2>
 
-  <a href="https://github.com/CaseyHofland/docfx-unitypackage">
-    <img src="https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/26e90342-31a0-4e6d-a119-b6c7e385d321" alt="Logo" width="400">
-  </a>
+  ![docfx-unitypackage](https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/d4666aa7-6424-4b5f-9721-021402fb238e)
   
   <p>
     GitHub Action for deploying a DocFX website for Unity packages to Github Pages.
