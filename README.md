@@ -19,7 +19,9 @@
   <!-- PROJECT LOGO -->
   <h2>DocFX Unity package</h2>
 
-  ![docfx-unitypackage showcase](https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/bad8597b-2520-4bd8-9022-55553f004faf)
+  <a href="https://cubusky.github.io/com.cubusky.core/manual/AttributeSerialization/ReferenceDropdownAttribute.html">
+    <img src="https://github.com/CaseyHofland/docfx-unitypackage/assets/27729987/bad8597b-2520-4bd8-9022-55553f004faf" alt="logo" target="_blank"/>
+  </a>
   
   <p>
     GitHub Action for deploying a DocFX website for Unity packages to Github Pages.
